@@ -18,10 +18,14 @@ COPY ./etc/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY ./bin/run /bin/run
 
-RUN export NODE_VERSION=0.11.0 && curl --progress-bar "http://nodejs.org/dist/v0.11.0/node-v$NODE_VERSION-linux-x64.tar.gz" \
-    | tar xz && mv "node-v$NODE_VERSION-linux-x64" /usr/local/node
+RUN export NODE_VERSION=0.11.0 \
+    && curl --progress-bar \
+           "http://nodejs.org/dist/v0.11.0/node-v$NODE_VERSION-linux-x64.tar.gz" \
+     | tar xz && mv "node-v$NODE_VERSION-linux-x64" /usr/local/node
 
-RUN export STATSD_VERSION=0.7.2 && git clone -b tags/v$STATSD_VERSION --depth 1  https://github.com/etsy/statsd.git statsd
+RUN export STATSD_VERSION=0.7.2 \
+   && git clone -b tags/v$STATSD_VERSION --depth 1 \
+                 https://github.com/etsy/statsd.git statsd
 
 EXPOSE 8125/udp 8126
 
