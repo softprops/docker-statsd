@@ -2,11 +2,12 @@
 
 GRAPHITE_HOST=${GRAPHITE_HOST:-localhost}
 GRAPHITE_PORT=${GRAPHITE_PORT:-2003}
+STATSD_PORT=${STATSD_PORT:-8125}
 
 cat << EOF > /statsd/config.js
 (function() {
   return {
-    port: 8125,
+    port: ${STATSD_PORT},
     graphiteHost: '${GRAPHITE_HOST}',
     graphitePort: ${GRAPHITE_PORT}
   };

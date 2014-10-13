@@ -15,9 +15,17 @@ $ docker build -t `whoami`/statsd .
 ports
 
 port     | use
----------|---------
+---------|-------------------
 8125/udp | udp line interface
 8126     | admin interface
+
+env
+
+var           | default value | use
+--------------|---------------|----------------------------------
+GRAPHITE_HOST | localhost     | hostname or IP of Graphite server
+GRAPHITE_PORT | 2003          | port of Graphite server
+STATSD_PORT   | 8125          | port to listen on
 
 ```bash
 $ docker run --rm -ti `whoami`/statsd
