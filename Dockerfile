@@ -10,7 +10,7 @@ RUN apt-get -y update && \
 
 RUN apt-get -y --force-yes \
             install supervisor \
-                    curl git python
+                    curl git python --no-install-recommends
 
 RUN mkdir -p /var/log/supervisor
 
@@ -25,10 +25,11 @@ RUN export NODE_VERSION=0.11.0 \
 
 RUN export STATSD_VERSION=0.7.2 \
    && git clone -b tags/v$STATSD_VERSION --depth 1 \
-                 https://github.com/etsy/statsd.git statsd
+                 https://github.com/etsy/statsd.git statsd \
+   && apt-get purge -y curl git python
 
 EXPOSE 8125/udp 8126
 
 CMD /bin/run
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
